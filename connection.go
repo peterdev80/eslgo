@@ -295,6 +295,8 @@ func (c *Conn) receiveLoop() {
 			if err.Error() == "EOF" {
 				// send signal to c.responseChannels[TypeDisconnect]
 				c.logger.Warn("Connection closed, stopping receive loop\n")
+				c.responseChanMutex.RLock()
+				defer c.responseChanMutex.RUnlock()
 				select {
 				case c.responseChannels[TypeDisconnect] <- &RawResponse{
 					Headers: textproto.MIMEHeader{
