@@ -16,8 +16,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/percipia/eslgo/command"
-	"github.com/percipia/eslgo/command/call"
+	"github.com/peterdev80/eslgo/command"
+	"github.com/peterdev80/eslgo/command/call"
 )
 
 // Leg This struct is used to specify the individual legs of a call for the originate helpers

@@ -15,7 +15,7 @@ import (
 	"net/textproto"
 	"strconv"
 
-	"github.com/percipia/eslgo/command"
+	"github.com/peterdev80/eslgo/command"
 )
 
 type Execute struct {
