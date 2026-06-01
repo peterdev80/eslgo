@@ -1,4 +1,4 @@
-module github.com/peterdev80/eslgo
+module github.com/percipia/eslgo
 
 go 1.21
 
