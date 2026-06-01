@@ -14,7 +14,7 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	"github.com/peterdev80/eslgo"
+	"github.com/percipia/eslgo"
 	"os"
 	"time"
 )

@@ -18,8 +18,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/peterdev80/eslgo/command"
-	"github.com/peterdev80/eslgo/command/call"
+	"github.com/percipia/eslgo/command"
+	"github.com/percipia/eslgo/command/call"
 )
 
 func (c *Conn) EnableEvents(ctx context.Context, format ...string) error {

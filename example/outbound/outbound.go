@@ -13,7 +13,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/peterdev80/eslgo"
+	"github.com/percipia/eslgo"
 	"log"
 )
 

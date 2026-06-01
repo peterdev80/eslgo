@@ -20,7 +20,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/peterdev80/eslgo/command"
+	"github.com/percipia/eslgo/command"
 )
 
 type Conn struct {
@@ -293,10 +293,11 @@ func (c *Conn) receiveLoop() {
 			// when err.Error() is EOF we should trigger event to responseChannel and exit the loop
 			// because the connection is closed
 			if err.Error() == "EOF" {
+
+				c.responseChanMutex.RLock()
+				
 				// send signal to c.responseChannels[TypeDisconnect]
 				c.logger.Warn("Connection closed, stopping receive loop\n")
-				c.responseChanMutex.RLock()
-				defer c.responseChanMutex.RUnlock()
 				select {
 				case c.responseChannels[TypeDisconnect] <- &RawResponse{
 					Headers: textproto.MIMEHeader{
@@ -307,6 +308,7 @@ func (c *Conn) receiveLoop() {
 				}:
 				default:
 				}
+				c.responseChanMutex.RUnlock()
 				return
 			}
 			break

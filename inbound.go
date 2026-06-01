@@ -13,7 +13,7 @@ package eslgo
 import (
 	"context"
 	"fmt"
-	"github.com/peterdev80/eslgo/command"
+	"github.com/percipia/eslgo/command"
 	"net"
 	"time"
 )
@@ -45,10 +45,16 @@ func Dial(address, password string, onDisconnect func()) (*Conn, error) {
 
 // Dial - Connects to FreeSWITCH ESL on the address with the provided options. Returns the connection and any errors encountered
 func (opts InboundOptions) Dial(address string) (*Conn, error) {
-	c, err := net.Dial(opts.Network, address)
+
+	dialer:= &net.Dialer{
+		Timeout: time.Second * 10,
+
+	}
+	c,err:=dialer.DialContext(opts.Context,opts.Network, address)
 	if err != nil {
 		return nil, err
 	}
+
 	connection := newConnection(c, false, opts.Options)
 
 	// First auth

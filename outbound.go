@@ -13,9 +13,10 @@ package eslgo
 import (
 	"context"
 	"errors"
-	"github.com/peterdev80/eslgo/command"
 	"net"
 	"time"
+
+	"github.com/percipia/eslgo/command"
 )
 
 type OutboundHandler func(ctx context.Context, conn *Conn, connectResponse *RawResponse)
@@ -51,9 +52,15 @@ func (opts OutboundOptions) ListenAndServe(address string, handler OutboundHandl
 	if err != nil {
 		return err
 	}
+	go func() {
+		<-opts.Context.Done()
+		// Закрытие лиспенера заставит Accept() немедленно вернуть ошибку
+		listener.Close()
+	}()
 	if opts.Logger != nil {
 		opts.Logger.Info("Listening for new ESL connections on %s\n", listener.Addr().String())
 	}
+
 	for {
 		c, err := listener.Accept()
 		if err != nil {
