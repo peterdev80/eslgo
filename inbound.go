@@ -56,6 +56,7 @@ func (opts InboundOptions) Dial(address string) (*Conn, error) {
 	}
 
 	connection := newConnection(c, false, opts.Options)
+	connection.logger.Info("!!!!!!!!!!!!!!!!!Connected to %s\n", address)
 
 	// First auth
 	<-connection.responseChannels[TypeAuthRequest]
