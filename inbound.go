@@ -50,14 +50,14 @@ func (opts InboundOptions) Dial(address string) (*Conn, error) {
 		Timeout: time.Second * 10,
 
 	}
-	return nil,fmt.Errorf("not implemented")
+
 	c,err:=dialer.DialContext(opts.Context,opts.Network, address)
 	if err != nil {
 		return nil, err
 	}
 
 	connection := newConnection(c, false, opts.Options)
-	connection.logger.Info("!!!!!!!!!!!!!!!!!Connected to %s\n", address)
+
 
 	// First auth
 	<-connection.responseChannels[TypeAuthRequest]
