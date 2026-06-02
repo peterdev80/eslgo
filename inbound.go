@@ -50,6 +50,7 @@ func (opts InboundOptions) Dial(address string) (*Conn, error) {
 		Timeout: time.Second * 10,
 
 	}
+	return nil,fmt.Errorf("not implemented")
 	c,err:=dialer.DialContext(opts.Context,opts.Network, address)
 	if err != nil {
 		return nil, err
