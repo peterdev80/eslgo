@@ -292,9 +292,10 @@ func (c *Conn) receiveLoop() {
 			c.logger.Warn("Error receiving message: %s\n", err.Error())
 			// when err.Error() is EOF we should trigger event to responseChannel and exit the loop
 			// because the connection is closed
-			if err.Error() == "EOF" {
+			// if err.Error() == "EOF" {
 
 				c.responseChanMutex.RLock()
+				defer c.responseChanMutex.RUnlock()
 				
 				// send signal to c.responseChannels[TypeDisconnect]
 				c.logger.Warn("Connection closed, stopping receive loop\n")
@@ -308,9 +309,9 @@ func (c *Conn) receiveLoop() {
 				}:
 				default:
 				}
-				c.responseChanMutex.RUnlock()
-				return
-			}
+				
+				// return
+			// }
 			break
 		}
 	}
